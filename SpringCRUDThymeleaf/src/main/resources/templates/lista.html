@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Lista de Produtos</title></head>
+<body>
+<h1>Produtos</h1>
+<a th:href="@{/produtos/novo}">Novo Produto</a>
+<table border="1">
+    <tr>
+        <th>Nome</th><th>Descrição</th><th>Valor</th><th>Quantidade</th><th>Imagem</th><th>Ações</th>
+    </tr>
+    <tr th:each="p : ${produtos}">
+        <td th:text="${p.nome}"></td>
+        <td th:text="${p.descricao}"></td>
+        <td th:text="${p.valor}"></td>
+        <td th:text="${p.quantidade}"></td>
+        <td><img th:src="${p.imagem}" width="100"/></td>
+        <td>
+            <a type="button" th:href="@{/produtos/editar/{id}(id=${p.id})}">Editar</a>
+            <a th:href="@{/produtos/deletar/{id}(id=${p.id})}">Deletar</a>
+            <!--<button type="button" th:onclick="'deletarProduto(' + ${p.id} + ')'">Deletar</button>-->
+        </td>
+    </tr>
+</table>
+<!--
+<script>
+    function deletarProduto(id) {
+        if (confirm("Tem certeza que deseja deletar este produto?")) {
+            fetch(`/produtos/${id}`, {
+                method: 'DELETE'
+            })
+                .then(response => {
+                    if (response.ok) {
+                        window.location.reload();
+                    } else {
+                        alert("Erro ao deletar produto");
+                    }
+                });
+        }
+    }
+</script>
+-->
+</body>
+</html>
